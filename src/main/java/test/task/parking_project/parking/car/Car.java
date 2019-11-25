@@ -1,7 +1,7 @@
-package test.task.parking.Parking.Car;
+package test.task.parking_project.parking.car;
 
 
-import test.task.parking.Parking.Ticket.Ticket;
+import test.task.parking_project.parking.ticket.Ticket;
 
 public class Car {
     private String model;

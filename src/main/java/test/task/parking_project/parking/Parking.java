@@ -1,4 +1,4 @@
-package test.task.parking.Parking;
+package test.task.parking_project.parking;
 
 import java.util.ArrayList;
 import java.util.List;

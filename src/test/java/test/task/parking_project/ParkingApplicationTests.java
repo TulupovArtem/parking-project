@@ -1,4 +1,4 @@
-package test.task.parking;
+package test.task.parking_project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,8 +1,8 @@
-package test.task.parking.Parking.Ticket;
+package test.task.parking_project.parking.ticket;
 
-import test.task.parking.Parking.Car.Car;
-import test.task.parking.Parking.Parking;
-import test.task.parking.Parking.Place;
+import test.task.parking_project.parking.car.Car;
+import test.task.parking_project.parking.Parking;
+import test.task.parking_project.parking.Place;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package test.task.parking.Parking;
+package test.task.parking_project.parking;
 
-import test.task.parking.Parking.Car.Car;
+import test.task.parking_project.parking.car.Car;
 
 public class Place {
     private Boolean free;

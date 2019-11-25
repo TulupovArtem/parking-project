@@ -1,4 +1,4 @@
-package test.task.parking.database.configuration;
+package test.task.parking_project.database.configuration;
 
 import java.io.IOException;
 import java.io.InputStream;

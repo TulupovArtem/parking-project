@@ -1,6 +1,6 @@
-package test.task.parking.database;
+package test.task.parking_project.database;
 
-import test.task.parking.database.configuration.Configuration;
+import test.task.parking_project.database.configuration.Configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

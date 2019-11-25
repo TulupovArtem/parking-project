@@ -1,4 +1,4 @@
-package test.task.parking.database.SQL;
+package test.task.parking_project.database.sql;
 
 public class SQL {
     public static final String UPDATE_PLACE = "UPDATE parking " +

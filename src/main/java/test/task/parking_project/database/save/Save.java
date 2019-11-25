@@ -1,7 +1,7 @@
-package test.task.parking.database.save;
+package test.task.parking_project.database.save;
 
-import test.task.parking.Parking.Car.Car;
-import test.task.parking.Parking.Ticket.Ticket;
+import test.task.parking_project.parking.car.Car;
+import test.task.parking_project.parking.ticket.Ticket;
 
 import java.sql.Connection;
 

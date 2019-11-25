@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>test.task</groupId>
-	<artifactId>parking</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>parking</name>
+	<artifactId>parking-project</artifactId>
+	<version>1.0</version>
+	<name>parking-project</name>
 	<description>Test task for work</description>
 
 	<properties>
