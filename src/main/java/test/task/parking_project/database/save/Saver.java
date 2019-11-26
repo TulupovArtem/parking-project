@@ -20,6 +20,7 @@ public class Saver implements Save {
             stmt.setString(3, ticket.getCar().getNumber());
             stmt.setInt(4, Integer.parseInt(ticket.getParkingPlace().getNumber().substring(1)));
             stmt.setTimestamp(5, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setString(6, (Boolean.toString(ticket.getOnParking())));
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error: saveTicket");
@@ -35,6 +36,7 @@ public class Saver implements Save {
             if (!rs.next()) {
                 PreparedStatement stmtIns = connection.prepareStatement(SQL.INSERT_CAR);
                 stmtIns.setString(1, car.getNumber());
+                stmtIns.setString(2, car.getModel());
                 stmtIns.executeUpdate();
                 stmtIns.close();
             }
@@ -48,8 +50,9 @@ public class Saver implements Save {
     public void saveParkingPlace(Ticket ticket, Connection connection) {
         try (PreparedStatement stmt = connection.prepareStatement(SQL.UPDATE_PLACE)) {
             stmt.setString(1, ticket.getId());
-            stmt.setString(2, (Boolean.toString(ticket.getParkingPlace().isFree())));
-            stmt.setInt(3, Integer.parseInt(ticket.getParkingPlace().getNumber().substring(1)));
+            stmt.setString(2, ticket.getCar().getNumber());
+            stmt.setString(3, (Boolean.toString(ticket.getParkingPlace().isFree())));
+            stmt.setInt(4, Integer.parseInt(ticket.getParkingPlace().getNumber().substring(1)));
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error: savePlace");

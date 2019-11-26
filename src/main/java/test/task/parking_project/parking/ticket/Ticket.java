@@ -9,12 +9,14 @@ public class Ticket {
     private String id;
     private Car car;
     private Place parkingPlace;
+    private Boolean onParking;
 
     public Ticket(Car car, Place place) {
         this.id = generateTicketId(car.getNumber(), place.getNumber());
         this.car = car;
         this.parkingPlace = place;
         place.setCar(car);
+        this.onParking = true;
     }
 
     private String generateTicketId(String numberCar, String numberPlace) {
@@ -43,5 +45,13 @@ public class Ticket {
 
     public void setParkingPlace(Place parkingPlace) {
         this.parkingPlace = parkingPlace;
+    }
+
+    public Boolean getOnParking() {
+        return onParking;
+    }
+
+    public void setOnParking(Boolean onParking) {
+        this.onParking = onParking;
     }
 }

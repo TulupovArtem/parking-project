@@ -2,36 +2,45 @@ package test.task.parking_project;
 
 import test.task.parking_project.parking.car.Car;
 import test.task.parking_project.parking.Parking;
-import test.task.parking_project.parking.ticket.ParkingMeter;
+import test.task.parking_project.parking.ParkingMeter;
 import test.task.parking_project.parking.ticket.Ticket;
-import test.task.parking_project.database.ConnectorDB;
-import test.task.parking_project.database.save.Saver;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
         Parking parking = new Parking(5);
-        Saver saver = new Saver();
-        try {
-            Connection con = ConnectorDB.getConnection();
-            saver.initParking(parking, con);
-            for (int cars = 0; cars != 6; cars++) {
-                Car car = new Car("BMW" + cars, "BC565A77RUS" + cars);
-                ParkingMeter parkingMeter = new ParkingMeter(parking);
-                Ticket ticket = parkingMeter.gettingTicket(parking, car);
-                if (ticket != null) {
-                    Car temp = car;
-                    saver.saveTicket(ticket, con);
-                    saver.saveParkingPlace(ticket, con);
-                    saver.saveCar(temp, con);
-                }
+        ParkingMeter parkingMeter = new ParkingMeter(parking);
+        Car bmw = new Car("BMW", "BC565A77RUS");
+        Car mers = new Car("mersedes", "AA967B88RUS");
+        Car audi = new Car("audi", "CC857L60RUS");
+        Car kia = new Car("kia", "TT666TT111RUS");
+        Ticket ticketBMW = parkingMeter.gettingTicket(parking, bmw);
+        Ticket ticketMers = parkingMeter.gettingTicket(parking, mers);
+        Ticket ticketAudi = parkingMeter.gettingTicket(parking, audi);
+        Ticket ticketKia = parkingMeter.gettingTicket(parking, kia);
+        parkingMeter.ticketReturn(ticketKia);
+        System.out.println("Count free places: " + parkingMeter.freeParkingPlaceReport() + '\n');
+        List<String> report1 = parkingMeter.allCarsReport();
+        List<String> report2 = parkingMeter.carsOnParkingReport();
+        System.out.println("All came to us: ");
+        if (report1 != null) {
+            for (String line : report1) {
+                System.out.println(line);
             }
-            con.close();
-        } catch (SQLException ex) {
-            System.out.println("Error: in main");
-            ex.printStackTrace();
+        } else {
+            System.out.println("No cars");
         }
+        System.out.println();
+        System.out.println("On parking: ");
+        if (report2 != null) {
+            for (String line : report2) {
+                System.out.println(line);
+            }
+        } else {
+            System.out.println("No cars");
+        }
+        parkingMeter.completionWork();
     }
 }
