@@ -22,6 +22,14 @@ public class ParkingMeter {
     private List<Ticket> tickets;
 
     private static ParkingMeter parkingMeter;
+    private static ParkingMeter parkingMeterForReporting;
+
+    private ParkingMeter() {
+        this.con = ConnectorDB.getConnection();
+        this.saver = new Saver();
+        this.deleter = new Deleter();
+        this.reporter = new Reporter();
+    }
 
     public ParkingMeter(Parking parking) {
         this.parking = parking;
@@ -31,6 +39,12 @@ public class ParkingMeter {
         saver.initParking(this.parking, this.con);
         this.reporter = new Reporter();
         this.tickets = new ArrayList<>();
+    }
+
+    public static void initParkingMeter() {
+        if (parkingMeter == null) {
+            parkingMeterForReporting = new ParkingMeter();
+        }
     }
 
     public static void initParkingMeter(Parking parking) {
@@ -173,5 +187,13 @@ public class ParkingMeter {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public static ParkingMeter getParkingMeterForReporting() {
+        return parkingMeterForReporting;
+    }
+
+    public static void setParkingMeterForReporting(ParkingMeter parkingMeterForReporting) {
+        ParkingMeter.parkingMeterForReporting = parkingMeterForReporting;
     }
 }

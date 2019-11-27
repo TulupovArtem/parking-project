@@ -14,7 +14,7 @@ public class SQL {
             "VALUES (?, ?, ?, ?, ?, ?)";
     public static final String SELECT_INIT_PLACES = "SELECT * FROM parking";
     public static final String UPDATE_EXIT_PLACE = "UPDATE parking " +
-            "SET ticket_number = NULL, free = 'true' WHERE number_place = ?";
+            "SET ticket_number = NULL, car_number = NULL, free = 'true' WHERE number_place = ?";
     public static final String UPDATE_EXIT_TICKET = "UPDATE tickets " +
             "SET on_parking = false WHERE ticket_number = ?";
     public static final String SELECT_FREE_PLACE = "SELECT free FROM parking WHERE free LIKE 'true'";
