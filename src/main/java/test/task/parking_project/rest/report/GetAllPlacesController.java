@@ -1,4 +1,4 @@
-package test.task.parking_project.controller.report;
+package test.task.parking_project.rest.report;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
