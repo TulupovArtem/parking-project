@@ -6,7 +6,7 @@ import test.task.parking_project.parking.ticket.Ticket;
 public class Car {
     private String model;
     private String number;
-    private Ticket ticket;
+//    private Ticket ticket;
 
     public Car(String model, String number) {
         this.model = model;
@@ -29,11 +29,11 @@ public class Car {
         this.number = number;
     }
 
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
+//    public Ticket getTicket() {
+//        return ticket;
+//    }
+//
+//    public void setTicket(Ticket ticket) {
+//        this.ticket = ticket;
+//    }
 }

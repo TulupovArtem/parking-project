@@ -9,6 +9,7 @@ import test.task.parking_project.parking.ticket.Ticket;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingMeter {
@@ -18,6 +19,9 @@ public class ParkingMeter {
     private Deleter deleter;
     private Connection con;
     private Reporter reporter;
+    private List<Ticket> tickets;
+
+    private static ParkingMeter parkingMeter;
 
     public ParkingMeter(Parking parking) {
         this.parking = parking;
@@ -26,6 +30,13 @@ public class ParkingMeter {
         this.deleter = new Deleter();
         saver.initParking(this.parking, this.con);
         this.reporter = new Reporter();
+        this.tickets = new ArrayList<>();
+    }
+
+    public static void initParkingMeter(Parking parking) {
+        if (parkingMeter == null) {
+            parkingMeter = new ParkingMeter(parking);
+        }
     }
 
     public Ticket gettingTicket(Parking parking, Car car) {
@@ -35,9 +46,10 @@ public class ParkingMeter {
             return null;
         }
         Ticket ticket = new Ticket(car, parking.getPlaces().get(freePlace));
-        car.setTicket(ticket);
+//        car.setTicket(ticket);
         parking.getPlaces().get(freePlace).setCar(car);
         savingDataInDB(ticket, car);
+        tickets.add(ticket);
         return ticket;
     }
 
@@ -58,7 +70,17 @@ public class ParkingMeter {
         saver.saveCar(car, con);
     }
 
-    public void ticketReturn(Ticket ticket) {
+    public Ticket searchTicket(String id) {
+        for (Ticket ticket : tickets) {
+            if (ticket.getId().equals(id)) {
+                return ticket;
+            }
+        }
+        return null;
+    }
+
+    public void ticketReturn(String id) {
+        Ticket ticket = searchTicket(id);
         if (ticket != null) {
             ticket.setOnParking(false);
             ticket.getParkingPlace().setCar(null);
@@ -135,5 +157,21 @@ public class ParkingMeter {
 
     public void setReporter(Reporter reporter) {
         this.reporter = reporter;
+    }
+
+    public static ParkingMeter getParkingMeter() {
+        return parkingMeter;
+    }
+
+    public static void setParkingMeter(ParkingMeter parkingMeter) {
+        ParkingMeter.parkingMeter = parkingMeter;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }

@@ -20,7 +20,7 @@ public class Main {
         Ticket ticketMers = parkingMeter.gettingTicket(parking, mers);
         Ticket ticketAudi = parkingMeter.gettingTicket(parking, audi);
         Ticket ticketKia = parkingMeter.gettingTicket(parking, kia);
-        parkingMeter.ticketReturn(ticketKia);
+        parkingMeter.ticketReturn(ticketKia.getId());
         System.out.println("Count free places: " + parkingMeter.freeParkingPlaceReport() + '\n');
         List<String> report1 = parkingMeter.allCarsReport();
         List<String> report2 = parkingMeter.carsOnParkingReport();

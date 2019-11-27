@@ -7,11 +7,19 @@ public class Parking {
     private int numberPlaces;
     private List<Place> places;
 
+    private static Parking parking;
+
     public Parking(int numberPlaces) {
         this.numberPlaces = numberPlaces;
         this.places = new ArrayList<>(numberPlaces);
         for (int num = 1; num != numberPlaces + 1; num++) {
             this.places.add(new Place("A" + num));
+        }
+    }
+
+    public static void initParking(int size) {
+        if (parking == null) {
+            parking = new Parking(size);
         }
     }
 
@@ -29,5 +37,13 @@ public class Parking {
 
     public void setPlaces(List<Place> places) {
         this.places = places;
+    }
+
+    public static Parking getParking() {
+        return parking;
+    }
+
+    public static void setParking(Parking parking) {
+        Parking.parking = parking;
     }
 }
