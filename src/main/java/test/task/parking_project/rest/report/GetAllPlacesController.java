@@ -13,7 +13,6 @@ public class GetAllPlacesController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public Integer getAllPlace() {
         ParkingMeter.initParkingMeter();
-        System.out.println(ParkingMeter.getParkingMeterForReporting());
         return ParkingMeter.getParkingMeterForReporting().freeParkingPlaceReport();
     }
 }
