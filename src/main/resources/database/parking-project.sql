@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS parking_param;
 DROP TABLE IF EXISTS car_history;
 DROP TABLE IF EXISTS parking;
 DROP TABLE IF EXISTS tickets;
@@ -29,4 +30,9 @@ CREATE TABLE car_history
     car_model VARCHAR(100) NOT NULL,
     car_number VARCHAR(100) NOT NULL,
     PRIMARY KEY (car_id)
+);
+
+CREATE TABLE parking_param
+(
+    size INTEGER NOT NULL
 );

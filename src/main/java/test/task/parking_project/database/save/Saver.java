@@ -64,6 +64,7 @@ public class Saver implements Save {
         try (PreparedStatement stmtCheck = connection.prepareStatement(SQL.SELECT_INIT_PLACES)) {
             ResultSet rs = stmtCheck.executeQuery();
             if (!rs.next()) {
+                addSizeParking(parking, connection);
                 PreparedStatement stmtInit = connection.prepareStatement(SQL.INIT_PARKING);
                 for (int place = parking.getNumberPlaces(); place != 0; place--) {
                     stmtInit.executeUpdate();
@@ -71,6 +72,16 @@ public class Saver implements Save {
             }
         } catch (SQLException ex) {
             System.out.println("Error: initParking");
+            ex.printStackTrace();
+        }
+    }
+
+    private void addSizeParking(Parking parking, Connection connection) {
+        try (PreparedStatement stmt = connection.prepareStatement(SQL.ADD_SIZE_PARKING)) {
+            stmt.setInt(1, parking.getNumberPlaces());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error: addSizeParking");
             ex.printStackTrace();
         }
     }

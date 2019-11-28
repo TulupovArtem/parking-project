@@ -21,4 +21,7 @@ public class SQL {
     public static final String SELECT_CARS_ON_PARKING = "SELECT car_number FROM parking " +
             "WHERE free LIKE 'false'";
     public static final String SELECT_ALL_CARS = "SELECT car_number FROM car_history";
+    public static final String ADD_SIZE_PARKING = "INSERT INTO parking_param(size) VALUES (?)";
+    public static final String GET_PARKING_SIZE = "SELECT size FROM parking_param";
+    public static final String SELECT_TICKETS = "SELECT * FROM tickets WHERE on_parking LIKE 'true'";
 }

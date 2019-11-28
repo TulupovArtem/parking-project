@@ -1,5 +1,9 @@
 package test.task.parking_project.parking;
 
+import test.task.parking_project.database.ConnectorDB;
+import test.task.parking_project.database.report.Reporter;
+
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +18,19 @@ public class Parking {
         this.places = new ArrayList<>(numberPlaces);
         for (int num = 1; num != numberPlaces + 1; num++) {
             this.places.add(new Place("A" + num));
+        }
+    }
+
+    public static void initParking() {
+        if (parking == null) {
+            Connection con = ConnectorDB.getConnection();
+            Reporter rep = new Reporter();
+            int size = rep.parkingSize(con);
+            if (size == 0) {
+                parking = null;
+            } else {
+                parking = new Parking(size);
+            }
         }
     }
 

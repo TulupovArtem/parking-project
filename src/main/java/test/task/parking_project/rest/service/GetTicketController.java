@@ -6,6 +6,7 @@ import test.task.parking_project.parking.Parking;
 import test.task.parking_project.parking.ParkingMeter;
 import test.task.parking_project.parking.car.Car;
 import test.task.parking_project.parking.ticket.Ticket;
+import test.task.parking_project.rest.service.value.AddTicketRequest;
 
 @RestController
 public class GetTicketController {
@@ -21,16 +22,16 @@ public class GetTicketController {
 
     @RequestMapping(value = "/get_ticket",
             method = RequestMethod.POST,
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Ticket addTicket(@RequestParam String number,
-                            @RequestParam String model,
-                            @RequestParam(value = "size", required=false, defaultValue="10") int size) {
-        Parking.initParking(size);
+    public Ticket addTicket(@RequestBody AddTicketRequest request) {
+        Parking.initParking(request.getSize());
         ParkingMeter.initParkingMeter(Parking.getParking());
         if (ParkingMeter.getParkingMeter().freeParkingPlaceReport() == 0) {
             return null;
         }
-        ticket = ParkingMeter.getParkingMeter().gettingTicket(Parking.getParking(), new Car(model, number));
+        ticket = ParkingMeter.getParkingMeter().gettingTicket(Parking.getParking(),
+                new Car(request.getModel(), request.getNumber()));
         return ticket;
     }
 }
