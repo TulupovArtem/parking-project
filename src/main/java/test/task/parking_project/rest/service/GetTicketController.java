@@ -1,8 +1,7 @@
 package test.task.parking_project.rest.service;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import test.task.parking_project.parking.Parking;
 import test.task.parking_project.parking.ParkingMeter;
 import test.task.parking_project.parking.car.Car;
@@ -11,15 +10,27 @@ import test.task.parking_project.parking.ticket.Ticket;
 @RestController
 public class GetTicketController {
 
-    @RequestMapping("/get_ticket")
-    public Ticket getTicket(@RequestParam(value = "size", required=false, defaultValue="10") int size,
-                            @RequestParam(value = "number") String number,
-                            @RequestParam(value = "model") String model) {
+    private Ticket ticket;
+
+    @RequestMapping(value = "/get_ticket",
+            method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    @RequestMapping(value = "/get_ticket",
+            method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Ticket addTicket(@RequestParam String number,
+                            @RequestParam String model,
+                            @RequestParam(value = "size", required=false, defaultValue="10") int size) {
         Parking.initParking(size);
         ParkingMeter.initParkingMeter(Parking.getParking());
         if (ParkingMeter.getParkingMeter().freeParkingPlaceReport() == 0) {
             return null;
         }
-        return ParkingMeter.getParkingMeter().gettingTicket(Parking.getParking(), new Car(model, number));
+        ticket = ParkingMeter.getParkingMeter().gettingTicket(Parking.getParking(), new Car(model, number));
+        return ticket;
     }
 }
