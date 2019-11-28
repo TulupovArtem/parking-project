@@ -49,7 +49,7 @@ public class ParkingMeter {
     }
 
     public static void initParkingMeter() {
-        if (parkingMeter == null) {
+        if (parkingMeterForReporting == null) {
             parkingMeterForReporting = new ParkingMeter();
         }
     }
