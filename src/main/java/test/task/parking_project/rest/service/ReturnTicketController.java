@@ -6,6 +6,7 @@ import test.task.parking_project.parking.Parking;
 import test.task.parking_project.parking.ParkingMeter;
 import test.task.parking_project.parking.ticket.Ticket;
 import test.task.parking_project.rest.service.value.ReturnTicketRequest;
+import test.task.parking_project.validate.ReturnTicketValidator;
 
 @RestController
 public class ReturnTicketController {
@@ -25,8 +26,10 @@ public class ReturnTicketController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public Ticket returnTicket(@RequestBody ReturnTicketRequest request) {
         Parking.initParking();
+        ReturnTicketValidator.checkData(request, Parking.getParking());
         ParkingMeter.initParkingMeter(Parking.getParking());
         ticket = ParkingMeter.getParkingMeter().ticketReturn(request.getId());
+        ReturnTicketValidator.checkData(ticket);
         return ticket;
     }
 }

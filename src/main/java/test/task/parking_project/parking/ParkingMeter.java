@@ -39,6 +39,9 @@ public class ParkingMeter {
         saver.initParking(this.parking, this.con);
         this.reporter = new Reporter();
         this.tickets = ticketsRecovery();
+        if (this.tickets == null) {
+            this.tickets = new ArrayList<>();
+        }
     }
 
     private List<Ticket> ticketsRecovery() {
@@ -88,6 +91,9 @@ public class ParkingMeter {
     }
 
     public Ticket searchTicket(String id) {
+        if (this.tickets == null) {
+            return null;
+        }
         List<Ticket> tickets = this.tickets;
         for (Ticket ticket : tickets) {
             if (ticket.getId().equals(id)) {
@@ -104,6 +110,7 @@ public class ParkingMeter {
             ticket.getParkingPlace().setCar(null);
             deleter.deletePlace(ticket, con);
             deleter.deleteTicket(ticket, con);
+            this.tickets.remove(ticket);
         } else {
             System.out.println("Not ticket!");
         }
