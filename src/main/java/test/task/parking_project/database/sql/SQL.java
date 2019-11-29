@@ -24,4 +24,5 @@ public class SQL {
     public static final String ADD_SIZE_PARKING = "INSERT INTO parking_param(size) VALUES (?)";
     public static final String GET_PARKING_SIZE = "SELECT size FROM parking_param";
     public static final String SELECT_TICKETS = "SELECT * FROM tickets WHERE on_parking LIKE 'true'";
+    public static final String CAR_ON_PARKING = "SELECT car_number FROM parking WHERE car_number LIKE ?";
 }

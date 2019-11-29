@@ -105,4 +105,18 @@ public class Reporter implements Report {
         }
         return tickets;
     }
+
+    public boolean carOnParking(Connection con, Car car) {
+        try (PreparedStatement stmt = con.prepareStatement(SQL.CAR_ON_PARKING)) {
+            stmt.setString(1, car.getNumber());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: carsOnParking");
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }

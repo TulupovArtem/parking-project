@@ -4,6 +4,7 @@ import test.task.parking_project.database.ConnectorDB;
 import test.task.parking_project.database.delete.Deleter;
 import test.task.parking_project.database.report.Reporter;
 import test.task.parking_project.database.save.Saver;
+import test.task.parking_project.exception.CarOnParkingException;
 import test.task.parking_project.parking.car.Car;
 import test.task.parking_project.parking.ticket.Ticket;
 
@@ -65,6 +66,9 @@ public class ParkingMeter {
         if (freePlace == -1) {
             System.out.println("No vacant places");
             return null;
+        }
+        if (reporter.carOnParking(con, car)) {
+            throw new CarOnParkingException();
         }
         Ticket ticket = new Ticket(car, parking.getPlaces().get(freePlace));
         parking.getPlaces().get(freePlace).setCar(car);
