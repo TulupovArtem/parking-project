@@ -13,7 +13,7 @@ public class GetTicketValidate {
     private static Matcher matcher;
 
     private static final String NUMBER_CAR_PATTERN = "^[A-Z0-9]{5,15}$";
-    private static final String MODEL_CAR_PATTERN = "^\\S+[A-Za-z0-9]+\\S+$";
+    private static final String MODEL_CAR_PATTERN = "^[A-Za-z0-9]+\\-?[A-Za-z0-9]+\\-?[A-Za-z0-9]+$";
 
     private static boolean carNumberAndModelValidator(AddTicketRequest request) {
         pattern = Pattern.compile(NUMBER_CAR_PATTERN);
