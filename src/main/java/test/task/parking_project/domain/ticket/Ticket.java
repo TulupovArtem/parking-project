@@ -1,7 +1,7 @@
-package test.task.parking_project.parking.ticket;
+package test.task.parking_project.domain.ticket;
 
-import test.task.parking_project.parking.car.Car;
-import test.task.parking_project.parking.Place;
+import test.task.parking_project.domain.car.Car;
+import test.task.parking_project.domain.Place;
 
 public class Ticket {
     private final int NUM_FOR_GENERATOR = 50;

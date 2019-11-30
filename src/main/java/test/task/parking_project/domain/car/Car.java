@@ -1,12 +1,9 @@
-package test.task.parking_project.parking.car;
+package test.task.parking_project.domain.car;
 
-
-import test.task.parking_project.parking.ticket.Ticket;
 
 public class Car {
     private String model;
     private String number;
-//    private Ticket ticket;
 
     public Car(String model, String number) {
         this.model = model;
@@ -28,12 +25,4 @@ public class Car {
     public void setNumber(String number) {
         this.number = number;
     }
-
-//    public Ticket getTicket() {
-//        return ticket;
-//    }
-//
-//    public void setTicket(Ticket ticket) {
-//        this.ticket = ticket;
-//    }
 }

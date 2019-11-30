@@ -1,12 +1,17 @@
 package test.task.parking_project.database;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import test.task.parking_project.database.configuration.Configuration;
+import test.task.parking_project.database.save.Saver;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectorDB {
+    private static final Logger logger = LoggerFactory.getLogger(ConnectorDB.class);
+
     private static Connection connector;
 
     private ConnectorDB() {
@@ -21,8 +26,7 @@ public class ConnectorDB {
                         Configuration.getProperty(Configuration.DB_PASSWORD));
             }
         } catch (SQLException ex) {
-            System.out.println("No connection with DB");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
         return connector;
     }

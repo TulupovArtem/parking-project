@@ -1,7 +1,5 @@
 package test.task.parking_project.database.report;
 
-import test.task.parking_project.parking.car.Car;
-
 import java.sql.Connection;
 import java.util.List;
 

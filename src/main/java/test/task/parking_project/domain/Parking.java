@@ -1,4 +1,4 @@
-package test.task.parking_project.parking;
+package test.task.parking_project.domain;
 
 import test.task.parking_project.database.ConnectorDB;
 import test.task.parking_project.database.report.Reporter;

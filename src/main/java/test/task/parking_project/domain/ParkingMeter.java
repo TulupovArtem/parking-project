@@ -1,12 +1,14 @@
-package test.task.parking_project.parking;
+package test.task.parking_project.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import test.task.parking_project.database.ConnectorDB;
 import test.task.parking_project.database.delete.Deleter;
 import test.task.parking_project.database.report.Reporter;
 import test.task.parking_project.database.save.Saver;
 import test.task.parking_project.exception.CarOnParkingException;
-import test.task.parking_project.parking.car.Car;
-import test.task.parking_project.parking.ticket.Ticket;
+import test.task.parking_project.domain.car.Car;
+import test.task.parking_project.domain.ticket.Ticket;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,6 +26,8 @@ public class ParkingMeter {
 
     private static ParkingMeter parkingMeter;
     private static ParkingMeter parkingMeterForReporting;
+
+    private static final Logger logger = LoggerFactory.getLogger(ParkingMeter.class);
 
     private ParkingMeter() {
         this.con = ConnectorDB.getConnection();
@@ -64,10 +68,10 @@ public class ParkingMeter {
     public Ticket gettingTicket(Parking parking, Car car) {
         definitionFreePlaces();
         if (freePlace == -1) {
-            System.out.println("No vacant places");
             return null;
         }
         if (reporter.carOnParking(con, car)) {
+            logger.warn("Car on parking!");
             throw new CarOnParkingException();
         }
         Ticket ticket = new Ticket(car, parking.getPlaces().get(freePlace));
@@ -116,7 +120,7 @@ public class ParkingMeter {
             deleter.deleteTicket(ticket, con);
             this.tickets.remove(ticket);
         } else {
-            System.out.println("Not ticket!");
+            logger.warn("No ticket!");
         }
         return ticket;
     }
@@ -136,8 +140,8 @@ public class ParkingMeter {
     public void completionWork() {
         try {
             con.close();
-        } catch (SQLException exp) {
-            exp.printStackTrace();
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage(), ex);
         }
     }
 

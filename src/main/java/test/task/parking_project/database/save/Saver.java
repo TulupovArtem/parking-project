@@ -1,8 +1,10 @@
 package test.task.parking_project.database.save;
 
-import test.task.parking_project.parking.car.Car;
-import test.task.parking_project.parking.Parking;
-import test.task.parking_project.parking.ticket.Ticket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import test.task.parking_project.domain.car.Car;
+import test.task.parking_project.domain.Parking;
+import test.task.parking_project.domain.ticket.Ticket;
 import test.task.parking_project.database.sql.SQL;
 
 import java.sql.Connection;
@@ -12,6 +14,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Saver implements Save {
+    private static final Logger logger = LoggerFactory.getLogger(Saver.class);
+
     @Override
     public void saveTicket(Ticket ticket, Connection connection) {
         try (PreparedStatement stmt = connection.prepareStatement(SQL.INSERT_TICKET)) {
@@ -23,8 +27,7 @@ public class Saver implements Save {
             stmt.setString(6, (Boolean.toString(ticket.getOnParking())));
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Error: saveTicket");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
     }
 
@@ -41,8 +44,7 @@ public class Saver implements Save {
                 stmtIns.close();
             }
         } catch (SQLException ex) {
-            System.out.println("Error: saveCar");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
     }
 
@@ -55,8 +57,7 @@ public class Saver implements Save {
             stmt.setInt(4, Integer.parseInt(ticket.getParkingPlace().getNumber().substring(1)));
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Error: savePlace");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
     }
 
@@ -71,8 +72,7 @@ public class Saver implements Save {
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("Error: initParking");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
     }
 
@@ -81,8 +81,7 @@ public class Saver implements Save {
             stmt.setInt(1, parking.getNumberPlaces());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Error: addSizeParking");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
     }
 }

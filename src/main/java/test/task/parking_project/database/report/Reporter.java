@@ -1,9 +1,12 @@
 package test.task.parking_project.database.report;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import test.task.parking_project.database.save.Saver;
 import test.task.parking_project.database.sql.SQL;
-import test.task.parking_project.parking.Parking;
-import test.task.parking_project.parking.car.Car;
-import test.task.parking_project.parking.ticket.Ticket;
+import test.task.parking_project.domain.Parking;
+import test.task.parking_project.domain.car.Car;
+import test.task.parking_project.domain.ticket.Ticket;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reporter implements Report {
+    private static final Logger logger = LoggerFactory.getLogger(Reporter.class);
     @Override
     public int freeParkingPlaceReport(Connection con) {
         int freePlaces = 0;
@@ -23,8 +27,7 @@ public class Reporter implements Report {
                 freePlaces++;
             }
         } catch (SQLException ex) {
-            System.out.println("Error: parkingPlaceReport");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
         return freePlaces;
     }
@@ -42,8 +45,7 @@ public class Reporter implements Report {
                 return null;
             }
         } catch (SQLException ex) {
-            System.out.println("Error: carsOnParkingReport");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
         return carsOnParking;
     }
@@ -61,8 +63,7 @@ public class Reporter implements Report {
                 return null;
             }
         } catch (SQLException ex) {
-            System.out.println("Error: allCarsReport");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
         return allCars;
     }
@@ -76,8 +77,7 @@ public class Reporter implements Report {
                 size = rs.getInt("size");
             }
         } catch (SQLException ex) {
-            System.out.println("Error: parkingSize");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
         return size;
     }
@@ -100,8 +100,7 @@ public class Reporter implements Report {
                 return null;
             }
         } catch (SQLException ex) {
-            System.out.println("Error: ticketsRecovery");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
         return tickets;
     }
@@ -114,8 +113,7 @@ public class Reporter implements Report {
                 return true;
             }
         } catch (SQLException ex) {
-            System.out.println("Error: carsOnParking");
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
         }
         return false;
     }
